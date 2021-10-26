@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>E-learning System</title>
+</head>
+	<body>
+		<h2>Welcome to Users Page</h2>
+
+		<form action="#" th:action="@{/add-user}" th:object="${users}" method="post">
+			<label for="username">Insert a username</label>
+			<input type="text" th:field="*{username}" id="username" placeholder="Username">
+			<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+			<label for="email">Email</label>
+			<input type="text" th:field="*{email}" id="email" placeholder="Email">
+			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+			<input type="submit" value="Add User">
+		</form>
+	</body>
+<html/>
