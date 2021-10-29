@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>E-learning System</title>
+</head>
+<body>
+<a href="/">Return home</a>
+<h2>Welcome to Feedback Page</h2>
+
+<form action="#" th:action="@{/addfeedback}" th:object="${feedbacks}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email" placeholder="Email">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <label for="feedback">Password</label>
+    <input type="text" th:field="*{feedback}" id="feedback" placeholder="Feedback">
+    <span th:if="${#fields.hasErrors('feedback')}" th:errors="*{feedback}"></span>
+
+    <input type="submit" value="Add Feedback">
+</form>
+</body>
+<html/>

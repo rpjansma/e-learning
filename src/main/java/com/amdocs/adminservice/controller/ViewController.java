@@ -1,14 +1,13 @@
 package com.amdocs.adminservice.controller;
 
-import com.amdocs.adminservice.entity.User;
-import com.amdocs.adminservice.service.impl.UserServiceImpl;
+import com.amdocs.adminservice.entity.*;
+import com.amdocs.adminservice.service.impl.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -16,9 +15,19 @@ import javax.validation.Valid;
 public class ViewController {
 
     private final UserServiceImpl userService;
+    private final AdminServiceImpl adminService;
+    private final ContactsServiceImpl contactsService;
+    private final CourseServiceImpl courseService;
+    private final FeedbackServiceImpl feedbackService;
 
-    public ViewController(UserServiceImpl userService) {
+
+
+    public ViewController(UserServiceImpl userService, AdminServiceImpl adminService, ContactsServiceImpl contactsService, CourseServiceImpl courseService, FeedbackServiceImpl feedbackService) {
         this.userService = userService;
+        this.adminService = adminService;
+        this.contactsService = contactsService;
+        this.courseService = courseService;
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping("/")
@@ -28,11 +37,19 @@ public class ViewController {
     }
 
     @GetMapping("/new-user")
-    public String getAllUsers(Model model, User user) {
+    public String getNewUsersPage(Model model, User user) {
         model.addAttribute("users", userService.saveUser(user));
         return "add-users";
     }
+    @PostMapping("/addusers")
+    public String saveUser(@Valid User user, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "add-user";
+        }
 
+        userService.saveUser(user);
+        return "redirect:/";
+    }
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userService.getUserByid(id)
@@ -41,7 +58,6 @@ public class ViewController {
         model.addAttribute("user", user);
         return "update-user";
     }
-
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id, @Valid User user,
                              BindingResult result, Model model) {
@@ -53,7 +69,6 @@ public class ViewController {
         userService.saveUser(user);
         return "redirect:/";
     }
-
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
         User user = userService.getUserByid(id)
@@ -62,13 +77,67 @@ public class ViewController {
         return "redirect:/";
     }
 
-    @PostMapping("/addusers")
-    public String saveUser(@Valid User user, BindingResult result, Model model) {
+
+
+    @GetMapping("/new-admin")
+    public String getNewAdminPage(Model model, Admin admin) {
+        model.addAttribute("admins", adminService.saveAdmin(admin));
+        return "add-admin";
+    }
+    @PostMapping("/addadmin")
+    public String saveUser(@Valid Admin admin, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            return "add-user";
+            return "add-admin";
         }
 
-        userService.saveUser(user);
+        adminService.saveAdmin(admin);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/new-course")
+    public String getCoursePage(Model model, Course course) {
+        model.addAttribute("courses", courseService.saveCourse(course));
+        return "add-course";
+    }
+    @PostMapping("/addcourse")
+    public String saveUser(@Valid Course course, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "add-course";
+        }
+
+        courseService.saveCourse(course);
+        return "redirect:/";
+    }
+
+    @GetMapping("/new-feedback")
+    public String getFeedbackPage(Model model, Feedback feedback) {
+        model.addAttribute("feedbacks", feedbackService.saveFeedback(feedback));
+        return "add-feedback";
+    }
+    @PostMapping("/addfeedback")
+    public String saveUser(@Valid Feedback feedback, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "add-feedback";
+        }
+
+        feedbackService.saveFeedback(feedback);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/new-contacts")
+    public String getContactsPage(Model model, Contacts contacts) {
+        model.addAttribute("courses", contactsService.saveContacts(contacts));
+        return "add-contacts";
+    }
+    @PostMapping("/addcontacts")
+    public String saveUser(@Valid Contacts contacts, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "add-feedback";
+        }
+
+        contactsService.saveContacts(contacts);
         return "redirect:/";
     }
 }
