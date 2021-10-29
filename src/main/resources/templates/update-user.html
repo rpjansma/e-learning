@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>E-learning System</title>
 </head>
 <body>
-	<h2>Welcome to Admin Page</h2>
+<h2>Welcome to Admin Page</h2>
 
-	<form action="#"
-		  th:action="@{/update/{id}(id=${user.user_id})}"
-		  th:object="${user}"
-		  method="post">
-		<label for="username">Name</label>
-		<input type="text" th:field="*{username}" id="username" placeholder="Username">
-		<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-		<label for="email">Email</label>
-		<input type="text" th:field="*{email}" id="email" placeholder="Email">
-		<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-		<input type="submit" value="Update User">
-	</form>
+<form action="#"
+      th:action="@{/update/{id}(id=${user.user_id})}"
+      th:object="${user}"
+      method="post">
+
+    <label for="username">Name</label>
+    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password" placeholder="Password">
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email" placeholder="Email">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <label for="address">Address</label>
+    <input type="text" th:field="*{address}" id="address" placeholder="Address">
+    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+
+    <label for="phone">Phone</label>
+    <input type="text" th:field="*{phone}" id="phone" placeholder="Phone">
+    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+
+
+    <input type="submit" value="Update User">
+</form>
 </body>
 <html/>

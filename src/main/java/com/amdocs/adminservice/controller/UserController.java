@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1")
 public class UserController {
 
     private final UserServiceImpl userService;
@@ -23,54 +23,14 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String getAllUsers() {
-        return "add-users";
-    }
-
-    @GetMapping("/")
-    public String showUserList(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "home";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = userService.getUserByid(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-        model.addAttribute("user", user);
-        return "update-user";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid User user,
-                             BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            user.setUser_id(id);
-            return "update-user";
+    public ResponseEntity getAllUsers() {
+        try {
+            return new ResponseEntity(userService.getAllUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        userService.saveUser(user);
-        return "redirect:/home";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userService.getUserByid(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userService.deleteUser(id);
-        return "redirect:/home";
-    }
-
-    @PostMapping("/addusers")
-    public String saveUser(@Valid User user, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            return "update-user";
-        }
-
-        userService.saveUser(user);
-        return "redirect:home";
-    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
