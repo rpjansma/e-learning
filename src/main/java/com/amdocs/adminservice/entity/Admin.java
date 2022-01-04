@@ -1,10 +1,8 @@
 package com.amdocs.adminservice.entity;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "admins")
@@ -21,9 +19,14 @@ public class Admin {
     private String a_name;
     private String a_email;
     private String a_password;
-    @ManyToMany
-    @JoinTable(name = "admin_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "admin_id"))
-    private Set<Course> courses;
+
+    //@ManyToMany
+    //@JoinTable(name = "admin_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "admin_id"))
+    //private Set<Course> courses = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "admins_course_id")
+    private Course courses;
 
     @Override
     public String toString() {

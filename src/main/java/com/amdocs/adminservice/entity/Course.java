@@ -4,6 +4,8 @@ package com.amdocs.adminservice.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -26,8 +28,13 @@ public class Course {
 
     private String c_resource;
 
-    @ManyToMany(mappedBy = "admins")
-    private Admin admin;
+    @ManyToOne
+    @JoinColumn(name = "feedbacks_feedback_id")
+    private Feedback feedbacks;
+
+
+    @OneToMany(mappedBy = "courses")
+    private Set<Admin> admin = new HashSet<>();
 
     @Override
     public String toString() {

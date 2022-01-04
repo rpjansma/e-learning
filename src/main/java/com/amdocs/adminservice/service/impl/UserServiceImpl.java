@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public User updateUser(User user) {
         try {
             repository.save(user);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return true;
+        return user;
     }
 
     @Override

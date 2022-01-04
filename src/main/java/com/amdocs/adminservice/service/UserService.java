@@ -9,7 +9,7 @@ public interface UserService {
 
     public User saveUser(User user);
 
-    public boolean updateUser(User user);
+    public User updateUser(User user);
 
     public Optional<User> getUserByid(Long id);
 

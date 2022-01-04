@@ -5,8 +5,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -25,17 +27,28 @@ public class User {
 
     private String password;
 
-    private String address;
+    @OneToOne
+    @JoinColumn(name = "contacts_contact_id")
+    private Contacts contacts;
 
-    @Size(min=8, message = "Phone number must have at least 8 numbers.")
-    private String phone;
+    @OneToMany(mappedBy = "user")
+    private Set<Feedback> feedbacks;
 
-    private String email;
-
+    @Column(name= "reg_date", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime reg_date;
 
     @UpdateTimestamp
     private LocalDateTime last_update;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", contacts=" + contacts +
+                ", reg_date=" + reg_date +
+                ", last_update=" + last_update +
+                '}';
+    }
 }

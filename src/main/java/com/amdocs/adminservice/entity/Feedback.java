@@ -21,4 +21,7 @@ public class Feedback {
     private String email;
     private String feedback;
 
+    @ManyToOne
+    @JoinColumn(name = "user_user_id")
+    private User user;
 }

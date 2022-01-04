@@ -18,10 +18,14 @@ public class Contacts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactId;
-    private Long userId;
-    private String name;
+
+    private String fullName;
     private String email;
     private String phoneNumber;
     private String message;
+
+    @OneToOne
+    @JoinColumn(name = "user_user_id")
+    private User user;
 
 }
