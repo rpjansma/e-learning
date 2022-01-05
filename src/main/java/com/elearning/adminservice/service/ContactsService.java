@@ -1,6 +1,7 @@
 package com.elearning.adminservice.service;
 
 import com.elearning.adminservice.entity.Contacts;
+import com.elearning.adminservice.entity.User;
 
 import java.util.List;
 

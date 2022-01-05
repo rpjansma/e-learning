@@ -4,6 +4,7 @@ package com.elearning.adminservice.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Course {
+public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class Course {
     private String c_resource;
 
     @OneToMany(mappedBy = "course")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "feedbacks_feedback_id")

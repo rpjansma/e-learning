@@ -30,15 +30,37 @@
     <main class="px-3">
         <h2>Welcome to Users Page</h2>
 
-        <form action="#" th:action="@{/addusers}" th:object="${users}" method="post">
-            <label for="username">Name</label>
-            <input type="text" th:field="*{username}" id="username" placeholder="Username">
-            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        <form action="#" th:action="@{/addusers}" method="post">
+            <div th:object="${users}">
+                <label for="username">Name</label>
+                <input type="text" th:field="*{username}" id="username" placeholder="Username">
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
-            <label for="password">Password</label>
-            <input type="text" th:field="*{password}" id="password" placeholder="Password">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                <label for="password">Password</label>
+                <input type="text" th:field="*{password}" id="password" placeholder="Password">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
 
+            <div th:object="${contacts}">
+                <label for="fullName">Password</label>
+                <input type="text" th:field="*{fullName}" id="fullName" placeholder="Full Name">
+                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+
+                <label for="email">Email</label>
+                <input type="text" th:field="*{email}" id="email" placeholder="Email">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+                <label for="phoneNumber">Phone</label>
+                <input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="Phone">
+                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+
+                <label for="message">Address</label>
+                <input type="text" th:field="*{message}" id="message" placeholder="Message">
+                <span th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></span>
+
+
+            </div>
+            <input type="submit" value="Add User">
         </form>
 
     </main>

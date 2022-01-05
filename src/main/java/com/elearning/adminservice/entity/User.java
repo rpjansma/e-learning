@@ -5,7 +5,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +29,15 @@ public class User {
     private String password;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToOne
-    @JoinColumn(name = "contacts_contact_id")
+    @JoinColumn(name = "contact_id")
     private Contacts contacts;
 
     @OneToMany(mappedBy = "user")
-    private Set<Feedback> feedbacks;
+    private Set<Feedback> feedbacks = new HashSet<>();
 
     @Column(name= "reg_date", nullable = false, updatable = false)
     @CreationTimestamp

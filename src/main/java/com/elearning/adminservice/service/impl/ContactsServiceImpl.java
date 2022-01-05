@@ -1,6 +1,7 @@
 package com.elearning.adminservice.service.impl;
 
 import com.elearning.adminservice.entity.Contacts;
+import com.elearning.adminservice.entity.User;
 import com.elearning.adminservice.repository.ContactsRepository;
 import com.elearning.adminservice.service.ContactsService;
 import org.springframework.stereotype.Service;

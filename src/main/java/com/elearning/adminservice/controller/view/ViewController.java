@@ -38,16 +38,19 @@ public class ViewController {
     }
 
     @GetMapping("/new-user")
-    public String getNewUsersPage(Model model, User user) {
+    public String getNewUsersPage(Model model, User user, Contacts contact) {
         model.addAttribute("users", userService.saveUser(user));
+        model.addAttribute("contacts", contactsService.saveContacts(contact));
         return "add-users";
     }
     @PostMapping("/addusers")
-    public String saveUser(@Valid User user, BindingResult result, Model model) {
+    public String saveUser(@Valid User user, @Valid Contacts contacts, BindingResult result, Model model) {
         if(result.hasErrors()) {
             return "add-user";
         }
 
+
+        contactsService.saveContacts(contacts);
         userService.saveUser(user);
         return "redirect:/";
     }
@@ -127,18 +130,18 @@ public class ViewController {
     }
 
 
-    @GetMapping("/new-contacts")
-    public String getContactsPage(Model model, Contacts contacts) {
-        model.addAttribute("courses", contactsService.saveContacts(contacts));
-        return "add-contacts";
-    }
-    @PostMapping("/addcontacts")
-    public String saveUser(@Valid Contacts contacts, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            return "add-feedback";
-        }
-
-        contactsService.saveContacts(contacts);
-        return "redirect:/";
-    }
+//    @GetMapping("/new-contacts")
+//    public String getContactsPage(Model model, Contacts contacts) {
+//        model.addAttribute("courses", contactsService.saveContacts(contacts));
+//        return "add-contacts";
+//    }
+//    @PostMapping("/addcontacts")
+//    public String saveContacts(@Valid Contacts contacts, BindingResult result, Model model) {
+//        if(result.hasErrors()) {
+//            return "add-feedback";
+//        }
+//
+//        contactsService.saveContacts(contacts);
+//        return "redirect:/";
+//    }
 }

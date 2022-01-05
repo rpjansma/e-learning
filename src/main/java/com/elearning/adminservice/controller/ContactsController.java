@@ -1,6 +1,7 @@
 package com.elearning.adminservice.controller;
 
 import com.elearning.adminservice.entity.Contacts;
+import com.elearning.adminservice.entity.User;
 import com.elearning.adminservice.service.impl.ContactsServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,6 @@ public class ContactsController {
     public ResponseEntity getAllContacts() {
         return new ResponseEntity(contactsService.getAllContacts(), HttpStatus.OK);
     }
-
-//    @GetMapping("/contacts")
-//    public ResponseEntity getContactsByUserId(@PathVariable Long id) {
-//        return new ResponseEntity(contactsService.getContactsByUserId(id), HttpStatus.OK);
-//    }
 
     @PostMapping("/")
     public ResponseEntity saveContacts(@RequestBody Contacts contacts) {
