@@ -3,6 +3,7 @@ package com.elearning.adminservice.controller;
 import com.elearning.adminservice.entity.User;
 import com.elearning.adminservice.service.impl.UserServiceImpl;
 import com.elearning.adminservice.service.integration.UserServiceApi;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,12 +31,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("/external-users")
-    public ResponseEntity getExternalUsers() {
+    @GetMapping("/external-users/{id}")
+    public ResponseEntity getExternalUserById(@PathVariable String id) {
         try {
-            return new ResponseEntity(userServiceApi.getAllUsers(), HttpStatus.OK);
+            ObjectMapper mapper = new ObjectMapper();
+            return new ResponseEntity(userServiceApi.getExternalUserById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Sorry, we got the error: " + e.getMessage() + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/external-users")
+    public ResponseEntity getExternalUser() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return new ResponseEntity(userServiceApi.getAllExternalUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Sorry, we got the error: " + e.getMessage() + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
