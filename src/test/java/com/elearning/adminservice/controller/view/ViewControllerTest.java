@@ -4,13 +4,18 @@ import com.elearning.adminservice.entity.*;
 import com.elearning.adminservice.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
-import java.util.HashSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class ViewControllerTest {
 
@@ -83,6 +88,18 @@ class ViewControllerTest {
     void getIndexPage() {
         String viewName = viewController.getIndexPage(model);
         assertEquals(viewName, "home");
+
+        ArgumentCaptor<List<User>> argumentUser = ArgumentCaptor.forClass(List.class);
+        ArgumentCaptor<List<Admin>> argumentAdmin = ArgumentCaptor.forClass(List.class);
+
+        verify(userService, times(1)).getAllUsers();
+        verify(adminService, times(1)).getAllAdmins();
+
+        verify(model, times(1)).addAttribute(eq("users"), argumentUser.capture());
+        verify(model, times(1)).addAttribute(eq("admins"), argumentAdmin.capture());
+
+        assertEquals(0, argumentUser.getValue().size());
+        assertEquals(0, argumentAdmin.getValue().size());
     }
 
     @Test
@@ -113,5 +130,6 @@ class ViewControllerTest {
     void getFeedbackPage() {
         String viewName = viewController.getFeedbackPage(model,feedback);
         assertEquals(viewName, "add-feedback");
+
     }
 }
