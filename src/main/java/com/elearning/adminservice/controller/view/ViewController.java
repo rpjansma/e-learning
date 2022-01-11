@@ -32,7 +32,7 @@ public class ViewController {
     }
 
     @GetMapping("/")
-    public String showUserList(Model model) {
+    public String getIndexPage(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("admins", adminService.getAllAdmins());
         return "home";
@@ -56,7 +56,7 @@ public class ViewController {
         return "redirect:/";
     }
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String getUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userService.getUserByid(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
