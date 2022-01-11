@@ -1,6 +1,7 @@
 package com.elearning.adminservice.controller.view;
 
 import com.elearning.adminservice.entity.*;
+import com.elearning.adminservice.service.*;
 import com.elearning.adminservice.service.impl.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +15,15 @@ import javax.validation.Valid;
 @Controller
 public class ViewController {
 
-    private final UserServiceImpl userService;
-    private final AdminServiceImpl adminService;
-    private final ContactsServiceImpl contactsService;
-    private final CourseServiceImpl courseService;
-    private final FeedbackServiceImpl feedbackService;
+    private final UserService userService;
+    private final AdminService adminService;
+    private final ContactsService contactsService;
+    private final CourseService courseService;
+    private final FeedbackService feedbackService;
 
 
 
-    public ViewController(UserServiceImpl userService, AdminServiceImpl adminService, ContactsServiceImpl contactsService, CourseServiceImpl courseService, FeedbackServiceImpl feedbackService) {
+    public ViewController(UserService userService, AdminService adminService, ContactsService contactsService, CourseService courseService, FeedbackService feedbackService) {
         this.userService = userService;
         this.adminService = adminService;
         this.contactsService = contactsService;
@@ -31,7 +32,7 @@ public class ViewController {
     }
 
     @GetMapping("/")
-    public String showUserList(Model model) {
+    public String getIndexPage(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("admins", adminService.getAllAdmins());
         return "home";
@@ -55,7 +56,7 @@ public class ViewController {
         return "redirect:/";
     }
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String getUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userService.getUserByid(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 

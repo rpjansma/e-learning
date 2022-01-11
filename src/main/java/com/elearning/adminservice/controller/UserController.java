@@ -1,6 +1,7 @@
 package com.elearning.adminservice.controller;
 
 import com.elearning.adminservice.entity.User;
+import com.elearning.adminservice.service.UserService;
 import com.elearning.adminservice.service.impl.UserServiceImpl;
 import com.elearning.adminservice.service.integration.UserServiceApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final UserServiceApi userServiceApi;
 
-    public UserController(UserServiceImpl userService, UserServiceApi userServiceApi) {
+    public UserController(UserService userService, UserServiceApi userServiceApi) {
         this.userService = userService;
         this.userServiceApi = userServiceApi;
     }
