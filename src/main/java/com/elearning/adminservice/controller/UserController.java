@@ -56,7 +56,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
         try {
-            return new ResponseEntity(userService.getUserByid(id), HttpStatus.CREATED);
+            return new ResponseEntity(userService.getUserByid(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }

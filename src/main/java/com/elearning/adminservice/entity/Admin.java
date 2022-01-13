@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "admins")
@@ -21,13 +23,10 @@ public class Admin implements Serializable {
     private String a_email;
     private String a_password;
 
-    //@ManyToMany
-    //@JoinTable(name = "admin_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "admin_id"))
-    //private Set<Course> courses = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "admins_course_id")
-    private Course courses;
+    @OneToMany
+    @JoinColumn(name = "course_id")
+    private Set<Course> courses = new HashSet<>();
 
     @Override
     public String toString() {

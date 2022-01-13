@@ -30,15 +30,16 @@ public class Course implements Serializable {
     private String c_resource;
 
     @OneToMany(mappedBy = "course")
+    @JoinColumn(name = "user_id")
     private Set<User> users = new HashSet<>();
 
+    @ManyToMany
+    @JoinColumn(name = "feedback_id")
+    private Set<Feedback> feedbacks = new HashSet<>();
+
+
     @ManyToOne
-    @JoinColumn(name = "feedbacks_feedback_id")
-    private Feedback feedbacks;
-
-
-    @OneToMany(mappedBy = "courses")
-    private Set<Admin> admin = new HashSet<>();
+    private Admin admin;
 
     @Override
     public String toString() {

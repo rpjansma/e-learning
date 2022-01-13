@@ -77,11 +77,13 @@ class ViewControllerTest {
 
         viewController = new ViewController(userService, adminService, contactsService, courseService, feedbackService);
 
+        HashSet courses = new HashSet();
+        courses.add(course);
         user.setContacts(contacts);
         user.setCourse(course);
         feedbacks.add(feedback);
         user.setFeedbacks(feedbacks);
-        admin.setCourses(course);
+        admin.setCourses(courses);
     }
 
     @Test

@@ -62,7 +62,7 @@
                 <h2 th:case="null">No admins yet!</h2>
                 <div th:case="*">
                     <h2>Admins</h2>
-                    <table>
+                    <table class="table table-bordered text-white">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -75,8 +75,8 @@
                         <tr th:each="admin : ${admins}">
                             <td th:text="${admin.a_name}"></td>
                             <td th:text="${admin.a_email}"></td>
-                            <td><a th:href="@{/edit/{id}(id=${admin.admin_id})}">Edit</a></td>
-                            <td><a th:href="@{/delete/{id}(id=${admin.admin_id})}">Delete</a></td>
+                            <td><a th:href="@{/edit/{id}(id=${admin.admin_id})}" class="btn-primary">Edit</a></td>
+                            <td><a th:href="@{/delete/{id}(id=${admin.admin_id})}" class="btn-secondary">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -88,7 +88,7 @@
     </main>
 
     <footer class="mt-auto text-white-50">
-        <p>Developed by <a href="https://linkedin.com/in/raul-paes" class="text-white">Raul Paes</a>.</p>
+        <p>Developed by <a href="https://linkedin.com/in/raul-paes" class="text-white fw-bold">Raul Paes</a>.</p>
     </footer>
 </div>
 

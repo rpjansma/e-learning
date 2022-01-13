@@ -6,11 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserControllerTest {
@@ -35,12 +36,17 @@ class UserControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         mockMvc.perform(get("/api/v1/users/")).andExpect(status().isOk());
-
-
     }
 
     @Test
-    void getExternalUserById() {
+    void getExternalUserById() throws Exception {
+        controller = new UserController(userService, userServiceApi);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+
+        mockMvc.perform(get("/api/v1/users/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user").exists());
     }
 
     @Test
