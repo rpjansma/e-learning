@@ -29,7 +29,7 @@ public class Course implements Serializable {
 
     private String c_resource;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany
     @JoinColumn(name = "user_id")
     private Set<User> users = new HashSet<>();
 
