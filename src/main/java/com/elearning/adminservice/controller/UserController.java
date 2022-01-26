@@ -2,8 +2,8 @@ package com.elearning.adminservice.controller;
 
 import com.elearning.adminservice.entity.User;
 import com.elearning.adminservice.service.UserService;
-import com.elearning.adminservice.service.impl.UserServiceImpl;
-import com.elearning.adminservice.service.integration.UserServiceApi;
+import com.elearning.adminservice.service.integration.UserServiceApiOpenFeign;
+import com.elearning.adminservice.service.integration.UserServiceApiRestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final UserServiceApi userServiceApi;
+    private final UserServiceApiOpenFeign userServiceApi;
+    private final UserServiceApiRestTemplate userServiceApiRestTemplate;
 
-    public UserController(UserService userService, UserServiceApi userServiceApi) {
+    public UserController(UserService userService, UserServiceApiOpenFeign userServiceApi, UserServiceApiRestTemplate userServiceApiRestTemplate) {
         this.userService = userService;
         this.userServiceApi = userServiceApi;
+        this.userServiceApiRestTemplate = userServiceApiRestTemplate;
     }
 
     @GetMapping("/users")
@@ -32,7 +34,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/external-users/{id}")
+    @GetMapping("/feign/users/{id}")
     public ResponseEntity getExternalUserById(@PathVariable String id) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -42,10 +44,18 @@ public class UserController {
         }
     }
 
-    @GetMapping("/external-users")
-    public ResponseEntity getExternalUser() {
+    @GetMapping("/feign/users")
+    public ResponseEntity getExternalUsersFeign() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            return new ResponseEntity(userServiceApi.getAllExternalUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Sorry, we got the error: " + e.getMessage() + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/rest/users")
+    public ResponseEntity getExternalUsersRest() {
+        try {
             return new ResponseEntity(userServiceApi.getAllExternalUsers(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Sorry, we got the error: " + e.getMessage() + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
