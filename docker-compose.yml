@@ -1,6 +1,6 @@
 version: '3'
 services:
-  admin-server:
+  admin-service:
     build: .
     container_name: admin-server
     image: admin-server:latest
@@ -24,5 +24,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always
+  user-service:
+    build: ../user-service/.
+    container_name: user-service
+    image: user-service:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/e-learning
+    ports:
+      - 8001:8080
+    restart: always
+    depends_on:
+      - db
+
 volumes:
   pgdata:

@@ -1,7 +1,8 @@
 package com.elearning.adminservice.controller;
 
 import com.elearning.adminservice.service.UserService;
-import com.elearning.adminservice.service.integration.UserServiceApi;
+import com.elearning.adminservice.service.integration.UserServiceApiOpenFeign;
+import com.elearning.adminservice.service.integration.UserServiceApiRestTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,19 +21,21 @@ class UserControllerTest {
     UserService userService;
 
     @Mock
-    UserServiceApi userServiceApi;
+    UserServiceApiOpenFeign userServiceApi;
+
+    @Mock
+    UserServiceApiRestTemplate userServiceApiRest;
 
     UserController controller;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
+        controller = new UserController(userService, userServiceApi, userServiceApiRest);
     }
 
     @Test
     void getAllUsers() throws Exception {
-        controller = new UserController(userService, userServiceApi);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         mockMvc.perform(get("/api/v1/users/")).andExpect(status().isOk());
@@ -40,7 +43,6 @@ class UserControllerTest {
 
     @Test
     void getExternalUserById() throws Exception {
-        controller = new UserController(userService, userServiceApi);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 
