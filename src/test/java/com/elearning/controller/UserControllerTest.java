@@ -4,6 +4,8 @@ import com.elearning.entity.User;
 import com.elearning.service.UserService;
 import com.elearning.service.integration.UserServiceApiOpenFeign;
 import com.elearning.service.integration.UserServiceApiRestTemplate;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -26,11 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest {
 
-    @Mock
+    @MockBean
     UserService userService;
-    @Mock
+    @MockBean
     UserServiceApiOpenFeign userServiceApi;
-    @Mock
+    @MockBean
     UserServiceApiRestTemplate userServiceApiRest;
 
     MockMvc mockMvc;
@@ -78,21 +81,52 @@ class UserControllerTest {
 
     @Test
     void saveUser() throws Exception {
-        User user = User.builder().user_id(1l).username("testuser").reg_date(LocalDateTime.now()).build();
+        User user = User.builder().user_id(1l).username("testuser").build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(user);
 
         Mockito.when(userService.saveUser(user)).thenReturn(user);
 
-//        mockMvc.perform(post("/api/v1/users"))
-//                .andExpect(status().isCreated())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.username", Matchers.is("testuser")))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.reg_date").exists());
+
+        mockMvc.perform(post("/api/v1/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").hasJsonPath())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username", Matchers.is("testuser")));
     }
 
     @Test
-    void updateUser() {
+    void updateUser() throws Exception {
+        User user = User.builder().user_id(1l).username("testuser").build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(user);
+
+        Mockito.when(userService.updateUser(user)).thenReturn(user);
+
+
+        mockMvc.perform(put("/api/v1/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").hasJsonPath())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username", Matchers.is("testuser")));
     }
 
     @Test
-    void deleteUser() {
+    void deleteUser() throws Exception {
+        User user = User.builder().user_id(1l).username("testuser").build();
+
+        Long searchedId = 1l;
+
+        Mockito.when(userService.deleteUser(searchedId)).thenReturn(true);
+
+        mockMvc.perform(delete( "/api/v1/users/{id}", searchedId))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isBoolean());
     }
 }
