@@ -21,7 +21,6 @@ public class ViewController {
     private final FeedbackService feedbackService;
 
 
-
     public ViewController(UserService userService, AdminService adminService, ContactsService contactsService, CourseService courseService, FeedbackService feedbackService) {
         this.userService = userService;
         this.adminService = adminService;
@@ -38,22 +37,21 @@ public class ViewController {
     }
 
     @GetMapping("/new-user")
-    public String getNewUsersPage(Model model, User user, Contacts contact) {
-        model.addAttribute("users", userService.saveUser(user));
-        model.addAttribute("contacts", contactsService.saveContacts(contact));
+    public String getNewUsersPage(Model model, User user) {
+        model.addAttribute("users", user);
         return "add-users";
     }
+
     @PostMapping("/addusers")
-    public String saveUser(@Valid User user, @Valid Contacts contacts, BindingResult result, Model model) {
-        if(result.hasErrors()) {
+    public String saveUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
             return "add-user";
         }
 
-
-        contactsService.saveContacts(contacts);
         userService.saveUser(user);
         return "redirect:/";
     }
+
     @GetMapping("/edit/{id}")
     public String getUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userService.getUserByid(id)
@@ -62,6 +60,7 @@ public class ViewController {
         model.addAttribute("user", user);
         return "update-user";
     }
+
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id, @Valid User user,
                              BindingResult result, Model model) {
@@ -73,24 +72,23 @@ public class ViewController {
         userService.saveUser(user);
         return "redirect:/";
     }
+
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userService.getUserByid(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }
 
 
-
     @GetMapping("/new-admin")
     public String getNewAdminPage(Model model, Admin admin) {
-        model.addAttribute("admins", adminService.saveAdmin(admin));
+        model.addAttribute("admins", admin);
         return "add-admin";
     }
+
     @PostMapping("/addadmin")
-    public String saveUser(@Valid Admin admin, BindingResult result, Model model) {
-        if(result.hasErrors()) {
+    public String saveUser(@Valid Admin admin, BindingResult result) {
+        if (result.hasErrors()) {
             return "add-admin";
         }
 
@@ -101,12 +99,13 @@ public class ViewController {
 
     @GetMapping("/new-course")
     public String getCoursePage(Model model, Course course) {
-        model.addAttribute("courses", courseService.saveCourse(course));
+        model.addAttribute("courses", course);
         return "add-course";
     }
+
     @PostMapping("/addcourse")
-    public String saveUser(@Valid Course course, BindingResult result, Model model) {
-        if(result.hasErrors()) {
+    public String saveUser(@Valid Course course, BindingResult result) {
+        if (result.hasErrors()) {
             return "add-course";
         }
 
@@ -116,12 +115,13 @@ public class ViewController {
 
     @GetMapping("/new-feedback")
     public String getFeedbackPage(Model model, Feedback feedback) {
-        model.addAttribute("feedbacks", feedbackService.saveFeedback(feedback));
+        model.addAttribute("feedbacks", feedback);
         return "add-feedback";
     }
+
     @PostMapping("/addfeedback")
-    public String saveUser(@Valid Feedback feedback, BindingResult result, Model model) {
-        if(result.hasErrors()) {
+    public String saveUser(@Valid Feedback feedback, BindingResult result) {
+        if (result.hasErrors()) {
             return "add-feedback";
         }
 

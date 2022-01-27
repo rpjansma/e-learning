@@ -105,7 +105,7 @@ class ViewControllerTest {
 
     @Test
     void getNewUsersPage() {
-        String viewName = viewController.getNewUsersPage(model, user, contacts);
+        String viewName = viewController.getNewUsersPage(model, user);
         assertEquals(viewName, "add-users");
     }
 
