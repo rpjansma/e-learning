@@ -3,11 +3,12 @@ services:
   admin-service:
     build: .
     container_name: admin-server
-    image: admin-server:latest
+    image: admin-service:latest
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/e-learning
     ports:
-      - 8000:8000
+      - 8080:8080
+    network_mode: "host"
     restart: always
     depends_on:
       - db
@@ -31,7 +32,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/e-learning
     ports:
-      - 8001:8080
+      - 8080:9999
+    network_mode: "host"
     restart: always
     depends_on:
       - db

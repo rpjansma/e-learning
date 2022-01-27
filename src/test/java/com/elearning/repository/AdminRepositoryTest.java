@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class AdminRepositoryTest {
 
     @Autowired
@@ -31,7 +30,11 @@ class AdminRepositoryTest {
     @Test
     void findAllAdmins() throws Exception {
         List<Admin> admins = adminRepository.findAll();
-
         assertEquals(0, admins.size());
+
+        Admin admin = Admin.builder().admin_id(1l).a_name("test").a_email("test@test.com").a_password("password").build();
+        adminRepository.save(admin);
+        assertEquals(1, admins.size());
+
     }
 }

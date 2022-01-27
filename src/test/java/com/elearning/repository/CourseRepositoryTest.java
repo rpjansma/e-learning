@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CourseRepositoryTest {
 
     @Autowired
@@ -29,8 +28,9 @@ class CourseRepositoryTest {
 
     @Test
     void findAllCourses() throws Exception {
-        List<Course> courses = courseRepository.findAll();
 
+
+        List<Course> courses = courseRepository.findAll();
         assertEquals(0, courses.size());
     }
 }
