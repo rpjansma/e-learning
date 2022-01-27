@@ -16,18 +16,7 @@
 
 <div class="cover-container d-flex p-3 mx-auto flex-column">
     <header class="mb-auto">
-        <div>
-            <h3 class="float-md-start mb-0">e-Learning</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link" href="/new-user">Add a new user</a>
-                <a class="nav-link" href="/new-admin">Add a new admin</a>
-                <a class="nav-link" href="/new-feedback">Add a new feedback</a>
-                <a class="nav-link" href="/new-course">Add a new course</a>
-                <a class="nav-link" href="/new-contacts">Add new contacts</a>
-
-            </nav>
-        </div>
+        <div th:insert="/nav-bar::navbar"></div>
     </header>
 
     <main class="px-3">
@@ -50,7 +39,9 @@
                     <tr th:each="user : ${users}">
                         <td th:text="${user.username}"></td>
                         <td>
-                            <a th:href="@{/edit/{id}(id=${user.user_id})}" ><button class="btn-primary">Edit</button></a>
+                            <a th:href="@{/edit/{id}(id=${user.user_id})}">
+                                <button class="btn-primary">Edit</button>
+                            </a>
                         </td>
                         <td>
                             <a th:href="@{/delete/{id}(id=${user.user_id})}" class="btn-secondary">Delete</a>
@@ -90,8 +81,8 @@
 
     </main>
 
-    <footer class="mt-auto text-center text-white-50">
-        <p>Developed by <a href="https://linkedin.com/in/raul-paes" class="text-white fw-bold">Raul Paes</a>.</p>
+    <footer class="mt-auto text-center text-white-50 footer">
+        <div th:insert="/footer::footer"></div>
     </footer>
 </div>
 
