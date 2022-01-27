@@ -25,10 +25,5 @@ public class UserServiceApiRestTemplate {
         return restTemplate.postForEntity(usersServiceUrl, user, User.class);
 }
 
-//    public ResponseEntity<User> deleteUserById(Long id) {
-//        return restTemplate.de(usersServiceUrl, id, User.class);
-//    }
-
-
 
 }

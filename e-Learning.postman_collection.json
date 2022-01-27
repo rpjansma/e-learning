@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "018e0420-f51d-4231-9dab-e9cabeabc4dc",
-		"name": "Amdocs Project",
+		"name": "e-Learning",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Juvenal\",\r\n    \"email\": \"nemapau@juvenal.com\",\r\n    \"feedback\": \"This is a test. Don't worry momma, i'm fine.\"\r\n}",
+							"raw": "{\r\n    \"a_name\": \"Juvenal\",\r\n    \"a_email\": \"nemapau@juvenal.com\",\r\n    \"a_password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/admins",
+							"raw": "http://localhost:8000/api/v1/admins/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -31,7 +31,9 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"admins"
+								"v1",
+								"admins",
+								""
 							]
 						}
 					},
@@ -86,7 +88,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/admins",
+							"raw": "http://localhost:8000/api/v1/admins/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -94,7 +96,9 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"admins"
+								"v1",
+								"admins",
+								""
 							]
 						}
 					},
@@ -115,7 +119,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/admins",
+							"raw": "http://localhost:8000/api/v1/admins/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -123,7 +127,9 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"admins"
+								"v1",
+								"admins",
+								""
 							]
 						}
 					},
@@ -147,7 +153,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/admins",
+							"raw": "http://localhost:8000/api/v1/admins/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -155,7 +161,9 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"admins"
+								"v1",
+								"admins",
+								"1"
 							]
 						}
 					},
@@ -339,7 +347,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Isa Mano\",\r\n    \"userId\": \"2\",\r\n    \"email\": \"isa@gmail.com\",\r\n    \"phoneNumber\": \"016992298800\",\r\n    \"message\": \"Olá mundo\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"Raul Mano\",\r\n    \"email\": \"raul@gmail.com\",\r\n    \"phoneNumber\": \"016992298800\",\r\n    \"message\": \"Bem vindo ao uatzap\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -347,14 +355,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/contacts",
+							"raw": "http://localhost:8000/api/v1/contacts",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "9090",
+							"port": "8000",
 							"path": [
 								"api",
+								"v1",
 								"contacts"
 							]
 						}
@@ -408,15 +417,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/contacts",
+							"raw": "http://localhost:8000/api/v1/contacts/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "9090",
+							"port": "8000",
 							"path": [
 								"api",
-								"contacts"
+								"v1",
+								"contacts",
+								""
 							]
 						}
 					},
@@ -472,22 +483,24 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/api/courses",
+							"raw": "http://localhost:8000/api/v1/courses/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8000",
 							"path": [
 								"api",
-								"courses"
+								"v1",
+								"courses",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get All Contacts",
+					"name": "Get All Courses",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -504,22 +517,24 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/api/courses",
+							"raw": "http://localhost:8000/api/v1/courses/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8000",
 							"path": [
 								"api",
-								"courses"
+								"v1",
+								"courses",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Contacts",
+					"name": "Update Courses",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -533,15 +548,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/api/courses",
+							"raw": "http://localhost:8000/api/v1/courses/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8000",
 							"path": [
 								"api",
-								"courses"
+								"v1",
+								"courses",
+								""
 							]
 						}
 					},
@@ -565,14 +582,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/api/courses/3",
+							"raw": "http://localhost:8000/api/v1/courses/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8000",
 							"path": [
 								"api",
+								"v1",
 								"courses",
 								"3"
 							]
@@ -581,7 +599,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Contacts",
+					"name": "Delete Course",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -622,7 +640,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"Batata\",\r\n    \"password\": \"743451\",\r\n    \"email\": \"potato@batata.com\",\r\n    \"phone\": \"016992298800\",\r\n    \"address\": \"Ceará\"\r\n}",
+							"raw": "{\r\n    \"username\": \"Tarantula\",\r\n    \"password\": \"332211\",\r\n    \"email\": \"email@email.com\",\r\n    \"phone\": \"123321\",\r\n    \"address\": \"Ceará\",\r\n    \"feedbacks\": [{\"feedback_id\": 1}],\r\n    \"contacts\": {\"contact_id\": 1}\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -630,15 +648,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
+							"raw": "http://localhost:8000/api/v1/users/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8000",
 							"path": [
 								"api",
-								"users"
+								"v1",
+								"users",
+								""
 							]
 						}
 					},
@@ -651,7 +671,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\": \"15\",\r\n    \"username\": \"Potatoes\",\r\n    \"password\": \"743451\",\r\n    \"email\": \"potato@batata.com\",\r\n    \"phone\": \"016992298800\",\r\n    \"address\": \"Ceará\"\r\n}",
+							"raw": "{\r\n    \"user_id\": \"35\",\r\n    \"username\": \"Guariba\",\r\n    \"password\": \"332211\",\r\n    \"email\": \"email@email.com\",\r\n    \"phone\": \"123321\",\r\n    \"address\": \"Ceará\",\r\n    \"feedbacks\": [{\"feedback_id\": 2}]\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -659,15 +679,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
+							"raw": "http://localhost:8000/api/v1/users/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8000",
 							"path": [
 								"api",
-								"users"
+								"v1",
+								"users",
+								""
 							]
 						}
 					},
@@ -679,16 +701,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/",
+							"raw": "http://localhost:8000/api/v1/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8000",
 							"path": [
 								"api",
-								"users",
-								""
+								"v1",
+								"users"
 							]
 						}
 					},
@@ -752,6 +774,37 @@
 								"api",
 								"users",
 								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"EsseTesteÉNovo\",\r\n    \"password\": \"332211\",\r\n    \"email\": \"email@email.com\",\r\n    \"phone\": \"123321\",\r\n    \"address\": \"Ceará\",\r\n    \"feedbacks\": [{\"feedback_id\": 1}],\r\n    \"contacts\": {\"contact_id\": 1}\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/rest/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"rest",
+								"users"
 							]
 						}
 					},
