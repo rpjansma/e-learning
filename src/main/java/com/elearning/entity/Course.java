@@ -29,10 +29,6 @@ public class Course implements Serializable {
 
     private String c_resource;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private Set<User> users = new HashSet<>();
-
     @ManyToMany
     @JoinColumn(name = "feedback_id")
     private Set<Feedback> feedbacks = new HashSet<>();

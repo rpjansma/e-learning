@@ -130,18 +130,18 @@ public class ViewController {
     }
 
 
-//    @GetMapping("/new-contacts")
-//    public String getContactsPage(Model model, Contacts contacts) {
-//        model.addAttribute("courses", contactsService.saveContacts(contacts));
-//        return "add-contacts";
-//    }
-//    @PostMapping("/addcontacts")
-//    public String saveContacts(@Valid Contacts contacts, BindingResult result, Model model) {
-//        if(result.hasErrors()) {
-//            return "add-feedback";
-//        }
-//
-//        contactsService.saveContacts(contacts);
-//        return "redirect:/";
-//    }
+    @GetMapping("/new-contacts")
+    public String getContactsPage(Model model, Contacts contacts) {
+        model.addAttribute("courses", contactsService.saveContacts(contacts));
+        return "add-contacts";
+    }
+    @PostMapping("/addcontacts")
+    public String saveContacts(@Valid Contacts contacts, BindingResult result) {
+        if(result.hasErrors()) {
+            return "add-feedback";
+        }
+
+        contactsService.saveContacts(contacts);
+        return "redirect:/";
+    }
 }
