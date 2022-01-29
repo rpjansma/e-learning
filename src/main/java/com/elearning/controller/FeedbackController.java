@@ -15,6 +15,8 @@ import javax.validation.Valid;
 public class FeedbackController {
 
     private final FeedbackServiceImpl feedbackService;
+    private String ERROR_MESSAGE = "Sorry, we got the error: ";
+
 
     public FeedbackController(FeedbackServiceImpl feedbackService) {
         this.feedbackService = feedbackService;
@@ -25,7 +27,7 @@ public class FeedbackController {
         try {
             return new ResponseEntity(feedbackService.getAllFeedbacks(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -34,25 +36,25 @@ public class FeedbackController {
         try {
             return new ResponseEntity(feedbackService.getFeedbackById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity createFeedback(@RequestBody @Valid Feedback feedback){
+    public ResponseEntity createFeedback(@RequestBody @Valid Feedback feedback) {
         try {
             return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity updateFeedback(@RequestBody @Valid Feedback feedback){
+    public ResponseEntity updateFeedback(@RequestBody @Valid Feedback feedback) {
         try {
             return new ResponseEntity(feedbackService.updateFeedback(feedback), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -61,7 +63,7 @@ public class FeedbackController {
         try {
             return new ResponseEntity(feedbackService.deleteFeedbackById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -16,7 +16,6 @@ public class ExternalUserController {
 
     private final UserServiceApiOpenFeign userServiceApiOpenFeign;
     private final UserServiceApiRestTemplate userServiceApiRestTemplate;
-
     private String ERROR_MESSAGE = "Sorry, we got the error: ";
 
     public ExternalUserController(UserServiceApiOpenFeign userServiceApiOpenFeign, UserServiceApiRestTemplate userServiceApiRestTemplate) {

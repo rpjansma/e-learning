@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final AdminServiceImpl adminService;
+    private String ERROR_MESSAGE = "Sorry, we got the error: ";
+
 
     public AdminController(AdminServiceImpl adminService) {
         this.adminService = adminService;
@@ -23,7 +25,7 @@ public class AdminController {
         try {
             return new ResponseEntity(adminService.getAllAdmins(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -32,7 +34,7 @@ public class AdminController {
         try {
             return new ResponseEntity(adminService.getAdminById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -41,7 +43,7 @@ public class AdminController {
         try {
             return new ResponseEntity(adminService.saveAdmin(admin), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,7 +52,7 @@ public class AdminController {
         try {
             return new ResponseEntity(adminService.updateAdmin(admin), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -59,7 +61,7 @@ public class AdminController {
         try {
             return new ResponseEntity(adminService.deleteAdminById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

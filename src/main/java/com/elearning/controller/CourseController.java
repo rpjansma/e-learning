@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
 
     private final CourseServiceImpl courseService;
+    private String ERROR_MESSAGE = "Sorry, we got the error: ";
+
 
     public CourseController(CourseServiceImpl courseService) {
         this.courseService = courseService;
@@ -21,7 +23,7 @@ public class CourseController {
         try {
             return new ResponseEntity(courseService.getAllCourses(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -31,7 +33,7 @@ public class CourseController {
         try {
             return new ResponseEntity(courseService.getCourseById(id), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -40,7 +42,7 @@ public class CourseController {
         try {
             return new ResponseEntity(courseService.saveCourse(course), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -49,7 +51,7 @@ public class CourseController {
         try {
             return new ResponseEntity<>(courseService.updateCourse(course), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -58,7 +60,7 @@ public class CourseController {
         try {
             return new ResponseEntity(courseService.deleteCourse(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity("Sorry, we got a error, try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
