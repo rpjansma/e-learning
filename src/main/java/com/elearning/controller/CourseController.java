@@ -25,7 +25,6 @@ public class CourseController {
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @GetMapping("/{id}")

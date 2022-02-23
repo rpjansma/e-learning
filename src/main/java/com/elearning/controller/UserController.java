@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final UserServiceApiOpenFeign userServiceApi;
-    private final UserServiceApiRestTemplate userServiceApiRestTemplate;
     private String ERROR_MESSAGE = "Sorry, we got the error: ";
 
 
-    public UserController(UserService userService, UserServiceApiOpenFeign userServiceApi, UserServiceApiRestTemplate userServiceApiRestTemplate) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userServiceApi = userServiceApi;
-        this.userServiceApiRestTemplate = userServiceApiRestTemplate;
     }
 
     @GetMapping("/users")
