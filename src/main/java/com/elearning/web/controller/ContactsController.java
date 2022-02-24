@@ -1,4 +1,4 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
 import com.elearning.entity.Contacts;
 import com.elearning.service.ContactsService;

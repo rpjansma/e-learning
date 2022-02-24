@@ -1,4 +1,4 @@
-package com.elearning.controller.view;
+package com.elearning.web.controller.view;
 
 import com.elearning.entity.*;
 import com.elearning.service.*;

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class ErrorDetail {
-    private LocalDateTime requestDateTime;
+    private String requestDateTime;
     private String detail;
     private String title;
     private String code;

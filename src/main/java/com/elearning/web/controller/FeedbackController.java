@@ -1,67 +1,70 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
-import com.elearning.entity.Admin;
-import com.elearning.service.impl.AdminServiceImpl;
+import com.elearning.entity.Feedback;
+import com.elearning.service.impl.FeedbackServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/v1/admins")
-@Slf4j
-public class AdminController {
+import javax.validation.Valid;
 
-    private final AdminServiceImpl adminService;
+@RestController
+@RequestMapping("/api/v1/feedbacks")
+@Slf4j
+public class FeedbackController {
+
+    private final FeedbackServiceImpl feedbackService;
     private String ERROR_MESSAGE = "Sorry, we got the error: ";
 
 
-    public AdminController(AdminServiceImpl adminService) {
-        this.adminService = adminService;
+    public FeedbackController(FeedbackServiceImpl feedbackService) {
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping("/")
-    public ResponseEntity getAllAdmins() {
+    public ResponseEntity getAllFeedbacks() {
         try {
-            return new ResponseEntity(adminService.getAllAdmins(), HttpStatus.OK);
+            return new ResponseEntity(feedbackService.getAllFeedbacks(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getAdminById(@PathVariable Long id) {
+    public ResponseEntity getFeedbackById(@PathVariable Long id) {
         try {
-            return new ResponseEntity(adminService.getAdminById(id), HttpStatus.OK);
+            return new ResponseEntity(feedbackService.getFeedbackById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity createAdmin(@RequestBody Admin admin) {
+    public ResponseEntity createFeedback(@RequestBody @Valid Feedback feedback) {
         try {
-            return new ResponseEntity(adminService.saveAdmin(admin), HttpStatus.CREATED);
+            return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity updateAdmin(@RequestBody Admin admin) {
+    public ResponseEntity updateFeedback(@RequestBody @Valid Feedback feedback) {
         try {
-            return new ResponseEntity(adminService.updateAdmin(admin), HttpStatus.OK);
+            return new ResponseEntity(feedbackService.updateFeedback(feedback), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteAdminById(@PathVariable Long id) {
+    public ResponseEntity deleteFeedbackById(@PathVariable Long id) {
         try {
-            return new ResponseEntity(adminService.deleteAdminById(id), HttpStatus.OK);
+            return new ResponseEntity(feedbackService.deleteFeedbackById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

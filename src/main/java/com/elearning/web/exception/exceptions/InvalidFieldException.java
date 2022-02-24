@@ -1,4 +1,4 @@
-package com.elearning.exception.exceptions;
+package com.elearning.web.exception.exceptions;
 
 public class InvalidFieldException extends RuntimeException {
 

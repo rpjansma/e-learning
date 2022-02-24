@@ -1,9 +1,7 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
 import com.elearning.entity.User;
 import com.elearning.service.UserService;
-import com.elearning.service.integration.UserServiceApiOpenFeign;
-import com.elearning.service.integration.UserServiceApiRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
