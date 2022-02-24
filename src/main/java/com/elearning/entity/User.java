@@ -73,4 +73,11 @@ public class User implements Serializable {
         return Objects.hash(user_id, username, password, contacts, feedbacks, reg_date, last_update);
     }
 
+    public boolean isValid() {
+        if(getUsername() != null && getPassword() != null) {
+            return true;
+        }
+        else return false;
+    }
+
 }
