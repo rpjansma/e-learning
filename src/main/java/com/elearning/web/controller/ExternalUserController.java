@@ -1,9 +1,8 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
 import com.elearning.entity.User;
 import com.elearning.service.integration.UserServiceApiOpenFeign;
 import com.elearning.service.integration.UserServiceApiRestTemplate;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,9 @@ public class ExternalUserController {
         this.userServiceApiRestTemplate = userServiceApiRestTemplate;
     }
 
-
-
     @GetMapping("/feign/users/{id}")
-    public ResponseEntity getExternalUserById(@PathVariable String id) {
+    public ResponseEntity getExternalUserById(@PathVariable Long id) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
             return new ResponseEntity(userServiceApiOpenFeign.getExternalUserById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,16 +32,16 @@ public class ExternalUserController {
     }
 
     @GetMapping("/feign/users")
-    public ResponseEntity getExternalUsersFeign() {
+    public ResponseEntity getExternalUsersWithFeign() {
         try {
-            return new ResponseEntity(userServiceApiOpenFeign.getAllExternalUsers(), HttpStatus.OK);
+            return new ResponseEntity(userServiceApiOpenFeign.getAllUsers(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/feign/users")
-    public ResponseEntity saveUserFeign(@RequestBody User user) {
+    public ResponseEntity saveUserWithFeign(@RequestBody User user) {
         try {
             return new ResponseEntity<>(userServiceApiOpenFeign.createNewUser(user), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -54,7 +50,7 @@ public class ExternalUserController {
     }
 
     @GetMapping("/rest/users")
-    public ResponseEntity getExternalUsersRest() {
+    public ResponseEntity getExternalUsersWithRest() {
         try {
             return new ResponseEntity(userServiceApiRestTemplate.getAllUsers(), HttpStatus.OK);
         } catch (Exception e) {
@@ -62,9 +58,8 @@ public class ExternalUserController {
         }
     }
 
-
     @GetMapping("/rest/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserByIdWithRest(@PathVariable Long id) {
         try {
             return new ResponseEntity(userServiceApiRestTemplate.getUserById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -73,9 +68,9 @@ public class ExternalUserController {
     }
 
     @PostMapping("/rest/users")
-    public ResponseEntity saveUserRest(@RequestBody User user) {
+    public ResponseEntity saveUserWithRest(@RequestBody User user) {
         try {
-            return new ResponseEntity<>(userServiceApiRestTemplate.createNewUser(user), HttpStatus.CREATED);
+            return new ResponseEntity(userServiceApiRestTemplate.createNewUser(user), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

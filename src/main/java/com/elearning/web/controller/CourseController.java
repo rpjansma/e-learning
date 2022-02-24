@@ -1,70 +1,67 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
-import com.elearning.entity.Feedback;
-import com.elearning.service.impl.FeedbackServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import com.elearning.entity.Course;
+import com.elearning.service.impl.CourseServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping("/api/v1/feedbacks")
-@Slf4j
-public class FeedbackController {
+@RequestMapping("/api/v1/courses")
+public class CourseController {
 
-    private final FeedbackServiceImpl feedbackService;
+    private final CourseServiceImpl courseService;
     private String ERROR_MESSAGE = "Sorry, we got the error: ";
 
 
-    public FeedbackController(FeedbackServiceImpl feedbackService) {
-        this.feedbackService = feedbackService;
+    public CourseController(CourseServiceImpl courseService) {
+        this.courseService = courseService;
     }
 
     @GetMapping("/")
-    public ResponseEntity getAllFeedbacks() {
+    public ResponseEntity getAllCourses() {
         try {
-            return new ResponseEntity(feedbackService.getAllFeedbacks(), HttpStatus.OK);
+            return new ResponseEntity(courseService.getAllCourses(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getFeedbackById(@PathVariable Long id) {
+    public ResponseEntity getCourseById(@PathVariable Long id) {
         try {
-            return new ResponseEntity(feedbackService.getFeedbackById(id), HttpStatus.OK);
+            return new ResponseEntity(courseService.getCourseById(id), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity createFeedback(@RequestBody @Valid Feedback feedback) {
+    public ResponseEntity saveCourse(@RequestBody Course course) {
         try {
-            return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
+            return new ResponseEntity(courseService.saveCourse(course), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity updateFeedback(@RequestBody @Valid Feedback feedback) {
+    public ResponseEntity updateCourse(@RequestBody Course course) {
         try {
-            return new ResponseEntity(feedbackService.updateFeedback(feedback), HttpStatus.OK);
+            return new ResponseEntity<>(courseService.updateCourse(course), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteFeedbackById(@PathVariable Long id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
         try {
-            return new ResponseEntity(feedbackService.deleteFeedbackById(id), HttpStatus.OK);
+            return new ResponseEntity(courseService.deleteCourse(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
 }

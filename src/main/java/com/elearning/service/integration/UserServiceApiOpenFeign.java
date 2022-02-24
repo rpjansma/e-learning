@@ -13,10 +13,10 @@ import java.util.List;
 public interface UserServiceApiOpenFeign {
 
     @GetMapping("/{id}")
-    User getExternalUserById(@PathVariable String id);
+    User getExternalUserById(@PathVariable Long id);
 
     @GetMapping()
-    List<User> getAllExternalUsers();
+    List<User> getAllUsers();
 
     @PostMapping()
     List<User> createNewUser(@RequestBody User user);

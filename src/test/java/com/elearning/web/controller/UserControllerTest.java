@@ -1,10 +1,7 @@
-package com.elearning.controller;
+package com.elearning.web.controller;
 
 import com.elearning.entity.User;
 import com.elearning.service.UserService;
-import com.elearning.service.integration.UserServiceApiOpenFeign;
-import com.elearning.service.integration.UserServiceApiRestTemplate;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -29,12 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest {
 
-    @MockBean
+    @Mock
     UserService userService;
-    @MockBean
-    UserServiceApiOpenFeign userServiceApi;
-    @MockBean
-    UserServiceApiRestTemplate userServiceApiRest;
 
     MockMvc mockMvc;
 
@@ -44,7 +35,7 @@ class UserControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        controller = new UserController(userService, userServiceApi, userServiceApiRest);
+        controller = new UserController(userService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
@@ -119,8 +110,6 @@ class UserControllerTest {
 
     @Test
     void deleteUser() throws Exception {
-        User user = User.builder().user_id(1l).username("testuser").build();
-
         Long searchedId = 1l;
 
         Mockito.when(userService.deleteUser(searchedId)).thenReturn(true);

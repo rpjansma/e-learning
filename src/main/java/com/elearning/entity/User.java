@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -24,8 +25,10 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
 
     @ManyToOne
@@ -68,6 +71,13 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(user_id, username, password, contacts, feedbacks, reg_date, last_update);
+    }
+
+    public boolean isValid() {
+        if(getUsername() != null && getPassword() != null) {
+            return true;
+        }
+        else return false;
     }
 
 }
