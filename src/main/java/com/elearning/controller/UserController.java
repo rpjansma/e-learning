@@ -43,11 +43,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity saveUser(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @PutMapping("/users")
