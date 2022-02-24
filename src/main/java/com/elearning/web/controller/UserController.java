@@ -2,6 +2,7 @@ package com.elearning.web.controller;
 
 import com.elearning.entity.User;
 import com.elearning.service.UserService;
+import com.elearning.web.exception.exceptions.BadRequestException;
 import com.elearning.web.exception.exceptions.InvalidFieldException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,47 +26,32 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity getAllUsers() {
-        try {
-            return new ResponseEntity(userService.getAllUsers(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity(userService.getAllUsers(), HttpStatus.OK);
     }
 
 
     @GetMapping("/users/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity(userService.getUserByid(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (id != null) return new ResponseEntity(userService.getUserByid(id), HttpStatus.OK);
+        else throw new BadRequestException("Inform the userId.");
     }
 
     @PostMapping("/users")
     public ResponseEntity saveUser(@RequestBody User user) throws InvalidFieldException {
-            if(user.isValid()) return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
-            else throw new InvalidFieldException("Validation error, check the user data.");
+        if (user.isValid()) return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+        else throw new BadRequestException("Validation error, property missing or wrong.");
     }
 
     @PutMapping("/users")
     public ResponseEntity updateUser(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (user.isValid()) return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+        else throw new BadRequestException("Inform the userId that you want to delete.");
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-        try {
-            return new ResponseEntity(userService.deleteUser(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        if (id != null) return new ResponseEntity(userService.deleteUser(id), HttpStatus.OK);
+        else throw new BadRequestException("Inform the userId that you want to delete.");
     }
-
 
 }

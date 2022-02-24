@@ -22,7 +22,7 @@ public class RestControllerAdviceHandler extends ResponseEntityExceptionHandler 
     @ExceptionHandler(InternalServerErrorException.class)
     public ResponseEntity<Object> handleInternalServerError(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        ErrorDetail apiError = ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).detail(ex.getMessage()).build();
+        ErrorDetail apiError = ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).title(ex.getMessage()).detail(ex.getCause().toString()).build();
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
     }
 
@@ -30,15 +30,14 @@ public class RestControllerAdviceHandler extends ResponseEntityExceptionHandler 
     @ResponseBody
     public ResponseEntity<Object> handleInvalidFieldException(InvalidFieldException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        ErrorDetail apiError =
-                ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).title(ex.getMessage()).detail(ex.getMessage()).build();
+        ErrorDetail apiError = ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).title(ex.getMessage()).detail(ex.getCause().toString()).build();
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleUncaught(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        ErrorDetail apiError = ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).detail(ex.getMessage()).build();
+        ErrorDetail apiError = ErrorDetail.builder().requestDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).code(status.toString()).title(ex.getMessage()).detail(ex.getCause().toString()).build();
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
     }
 }
