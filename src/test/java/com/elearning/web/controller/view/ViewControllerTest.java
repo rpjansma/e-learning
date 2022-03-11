@@ -49,7 +49,7 @@ class ViewControllerTest {
             .build();
 
     Feedback feedback = Feedback.builder()
-            .feedback_id(1L)
+            .id(1L)
             .build();
 
     HashSet feedbacks = new HashSet();

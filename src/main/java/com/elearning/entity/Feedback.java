@@ -3,6 +3,7 @@ package com.elearning.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,10 +18,13 @@ public class Feedback implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feedback_id;
+    private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String email;
-    private String feedback;
+    @NotNull
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "user_user_id")
@@ -29,10 +33,10 @@ public class Feedback implements Serializable {
     @Override
     public String toString() {
         return "Feedback{" +
-                "feedback_id=" + feedback_id +
+                "feedback_id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", feedback='" + feedback + '\'' +
+                ", feedback='" + text + '\'' +
                 ", user=" + user +
                 '}';
     }
@@ -42,11 +46,19 @@ public class Feedback implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Feedback feedback1 = (Feedback) o;
-        return Objects.equals(feedback_id, feedback1.feedback_id) && Objects.equals(name, feedback1.name) && Objects.equals(email, feedback1.email) && Objects.equals(feedback, feedback1.feedback) && Objects.equals(user, feedback1.user);
+        return Objects.equals(id, feedback1.id) && Objects.equals(name, feedback1.name) && Objects.equals(email, feedback1.email) && Objects.equals(text, feedback1.text) && Objects.equals(user, feedback1.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedback_id, name, email, feedback, user);
+        return Objects.hash(id, name, email, text, user);
     }
+
+    public boolean isValid() {
+        if(getName() != null && getEmail() != null && getText() != null) {
+            return true;
+        }
+        else return false;
+    }
+
 }
