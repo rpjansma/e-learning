@@ -51,7 +51,7 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         if (id != null) return new ResponseEntity(userService.deleteUser(id), HttpStatus.OK);
-        else throw new BadRequestException("Inform the userId that you want to delete.");
+        else throw new BadRequestException("Inform the user ID that you want to delete.");
     }
 
 }

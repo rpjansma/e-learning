@@ -2,6 +2,7 @@ package com.elearning.web.controller;
 
 import com.elearning.entity.Feedback;
 import com.elearning.service.impl.FeedbackServiceImpl;
+import com.elearning.web.exception.exceptions.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,47 +25,32 @@ public class FeedbackController {
 
     @GetMapping("/")
     public ResponseEntity getAllFeedbacks() {
-        try {
-            return new ResponseEntity(feedbackService.getAllFeedbacks(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity(feedbackService.getAllFeedbacks(), HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getFeedbackById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity(feedbackService.getFeedbackById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (id != null) return new ResponseEntity(feedbackService.getFeedbackById(id), HttpStatus.OK);
+        else throw new BadRequestException("Inform the userId.");
     }
 
     @PostMapping("/")
     public ResponseEntity createFeedback(@RequestBody @Valid Feedback feedback) {
-        try {
-            return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (feedback.isValid()) return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
+        else throw new BadRequestException("Validation error, property missing or wrong.");
     }
 
     @PutMapping("/")
     public ResponseEntity updateFeedback(@RequestBody @Valid Feedback feedback) {
-        try {
-            return new ResponseEntity(feedbackService.updateFeedback(feedback), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (feedback.isValid()) return new ResponseEntity(feedbackService.saveFeedback(feedback), HttpStatus.CREATED);
+        else throw new BadRequestException("Validation error, property missing or wrong.");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteFeedbackById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity(feedbackService.deleteFeedbackById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(ERROR_MESSAGE + e.getMessage() + " caused by: " + e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        if (id != null) return new ResponseEntity(feedbackService.deleteFeedbackById(id), HttpStatus.OK);
+        else throw new BadRequestException("Inform the feedback ID that you want to delete.");
     }
 
 }
